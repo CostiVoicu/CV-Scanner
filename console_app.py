@@ -1,9 +1,15 @@
 from typing import Dict
 from cv_scanner import key_words_counter
 
-def run_menu() -> None:
-    """Display a menu with job profiles option based on what the documents will be scanned."""
+def get_key_words() -> Dict[str, int]:
+    """Displays the available job profiles options that the user can choose from.
 
+    Args:
+        None.
+
+    Returns:
+        (Dict[str, int]): Key words for the job profile chosed.
+    """
     print("""
 Pick a job you want to hire for:
 1. Django developer
@@ -37,18 +43,41 @@ Pick a job you want to hire for:
         'cmake': 7,
         'OOP': 8
     }
-    
-    key_words: Dict[str, int] = {}
 
     match job:
         case 1:
-            key_words = key_words_django_dev
+            return key_words_django_dev
         case 2:
-            key_words = key_words_dotnet_dev
+            return key_words_dotnet_dev
         case 3:
-            key_words = key_words_cpp_dev
+            return key_words_cpp_dev
         case _:
             print('There is no such job!')
+            return {}
+
+def get_no_persons() -> int:
+    """Asks for the number of persons the user will choose from.
+
+    Args:
+        None.
+
+    Returns:
+        (int): Number of persons.
+    """
+    return input('How many persons you want to choose?: ')
+
+def run_menu() -> None:
+    """Display a menu to choose a job profile and the number of persons to choose from.
+    
+    Args:
+        None.
+
+    Returns:
+        (None).
+    """
+
+    no_persons = get_no_persons()
+    key_words = get_key_words()
 
     final_counter = key_words_counter(key_words)
     print(final_counter)
