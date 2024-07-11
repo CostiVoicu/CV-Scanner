@@ -1,9 +1,8 @@
-from typing import List
+from typing import Dict
 from cv_scanner import key_words_counter
 
 def run_menu() -> None:
-    """
-    """
+    """Display a menu with job profiles option based on what the documents will be scanned."""
 
     print("""
 Pick a job you want to hire for:
@@ -14,11 +13,32 @@ Pick a job you want to hire for:
 
     job: int = int(input())
     
-    key_words_django_dev: List[str] = ['python', 'django', 'html', 'css', 'javascript', 'api']
-    key_words_dotnet_dev: List[str] = ['c#', '.net', 'entity framework', 'sql', 'wpf', 'api']
-    key_words_cpp_dev: List[str] = ['c++', 'qt', 'cmake']
+    key_words_django_dev: Dict[str, int] = {
+        'python': 10, 
+        'django': 9, 
+        'html': 6, 
+        'css': 6,
+        'javascript': 6,
+        'api': 8,
+        'OOP': 8
+    }
+    key_words_dotnet_dev: Dict[str, int] = {
+        'c#': 10, 
+        '.net': 9, 
+        'entity framework': 8, 
+        'sql': 6, 
+        'wpf': 7,
+        'api': 7,
+        'OOP': 8
+    }
+    key_words_cpp_dev: Dict[str, int] = {
+        'c++': 10, 
+        'qt': 6, 
+        'cmake': 7,
+        'OOP': 8
+    }
     
-    key_words: List[str] = []
+    key_words: Dict[str, int] = {}
 
     match job:
         case 1:
@@ -28,7 +48,7 @@ Pick a job you want to hire for:
         case 3:
             key_words = key_words_cpp_dev
         case _:
-            print('There is not such job!')
+            print('There is no such job!')
 
     final_counter = key_words_counter(key_words)
     print(final_counter)
