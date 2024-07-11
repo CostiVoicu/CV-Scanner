@@ -61,11 +61,3 @@ def key_words_counter(key_words: List[str]) -> Dict[str, int]:
             key_words_dict[word] += current_text_words.count(word)
 
     return key_words_dict
-
-def main():
-    key_words: List[str] = ['python', 'c++', 'qt', '.net', 'html', 'c#', 'django']
-    final_counter = key_words_counter(key_words)
-    print(final_counter)
-
-if __name__ == '__main__':
-    main()
