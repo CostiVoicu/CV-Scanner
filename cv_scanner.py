@@ -42,22 +42,22 @@ def get_doc_paths(dir_path: str) -> List[str]:
 
     return doc_paths
 
-def key_words_counter(key_words: List[str]) -> Dict[str, int]:
-    """Counts every accurance of each key word in the documents.
+def get_document_score(key_words: Dict[str, int], path: str) -> float:
+    """Counts every accurance of each key word in the document 
+    and computes a score for the document located at the specified path.
 
     Args:
-        key_words (List[str]): The list of key words.
+        key_words (Dict[str, int]): The list of key words and the priority each of them has.
+        path (str): The path to the document.
 
     Returns:
-        Dict[str, int]: Dictionary that has the word as key and the accurances of that word in the documents as value.
+        float: Score of the document.
     """
-    key_words_dict: Dict[str, int] = {word:0 for word in key_words}
-    
-    doc_paths: List[str] = get_doc_paths('./cv_documents/')
+    current_text_words = re.split(r',|;|:| |\n', extract_text_from_doc(path))
+    key_words_doc: Dict[str, int] = {}
+    for word in key_words:
+        key_words_doc[word] = current_text_words.count(word)
 
-    for path in doc_paths:
-        current_text_words = re.split(r',|;|:| |\n', extract_text_from_doc(path))
-        for word in key_words:
-            key_words_dict[word] += current_text_words.count(word)
+    score: float = sum([0.7*key_words[word] + 0.3*key_words_doc[word] for word in key_words])
 
-    return key_words_dict
+    return score
