@@ -61,3 +61,19 @@ def get_document_score(key_words: Dict[str, int], path: str) -> float:
     score: float = sum([0.7*key_words[word] + 0.3*key_words_doc[word] for word in key_words])
 
     return score
+
+def get_top_doc(key_words: Dict[str, int], no_persons: int) -> List[str]:
+    """Displays top documents based on the score.
+
+    Args:
+        key_words (Dict[str, int]): The list of key words and the priority each of them has.
+        no_persons (int): The number of documents that will be displayed.
+
+    Returns:
+        List[str]: List of the top documents paths ordered by score.
+    """
+    doc_paths: List[str] = get_doc_paths('./cv_documents/')
+
+    documents_score: Dict[str, float] = {path: get_document_score(key_words, path) for path in doc_paths}
+
+    return sorted(documents_score, reverse=True)[:no_persons]
