@@ -76,4 +76,4 @@ def get_top_doc(key_words: Dict[str, int], no_persons: int) -> List[str]:
 
     documents_score: Dict[str, float] = {path: get_document_score(key_words, path) for path in doc_paths}
 
-    return sorted(documents_score, reverse=True)[:no_persons]
+    return [doc[0] for doc in sorted(documents_score.items(), key=lambda item: item[1], reverse=True)[:no_persons]]

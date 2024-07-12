@@ -14,7 +14,7 @@ def get_key_words() -> Dict[str, int]:
 Pick a job you want to hire for:
 1. Django developer
 2. .NET developer
-3. C++ developer
+3. HR
     """)
 
     job: int = int(input())
@@ -26,22 +26,24 @@ Pick a job you want to hire for:
         'css': 6,
         'javascript': 6,
         'api': 8,
-        'OOP': 8
+        'OOP': 8,
+        'git': 8
     }
     key_words_dotnet_dev: Dict[str, int] = {
         'c#': 10, 
         '.net': 9, 
-        'entity framework': 8, 
+        'asp.net': 8, 
         'sql': 6, 
         'wpf': 7,
         'api': 7,
-        'OOP': 8
+        'OOP': 8,
+        'git': 8
     }
-    key_words_cpp_dev: Dict[str, int] = {
-        'c++': 10, 
-        'qt': 6, 
-        'cmake': 7,
-        'OOP': 8
+    key_words_hr: Dict[str, int] = {
+        'communication ': 10, 
+        'hr policies': 6, 
+        'recruitment ': 9,
+        'training': 5
     }
 
     match job:
@@ -50,7 +52,7 @@ Pick a job you want to hire for:
         case 2:
             return key_words_dotnet_dev
         case 3:
-            return key_words_cpp_dev
+            return key_words_hr
         case _:
             print('There is no such job!')
             return {}
