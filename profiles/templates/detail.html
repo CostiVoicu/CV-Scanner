@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile details
+{% endblock title %}
+
+{% block header_title %}
+    <h1>{{ profile.name }}</h1>
+{% endblock header_title %}
+
+{% block content %}
+    <div>
+        <ul>
+            {% for word in keywords %}
+                <li> {{ word.name }} - {{ word.value }} </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}

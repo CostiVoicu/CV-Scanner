@@ -12,7 +12,18 @@
     <link rel="stylesheet" href="{% static "css/style.css" %}">
 </head>
 <body>
-    {% block content %}
-    {% endblock content %}
+    <header>
+        {% block header_title %}
+        {% endblock header_title %}
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/job_profiles">Job Profiles</a>
+        <a href="/documents">Scan CVs</a>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
 </body>
 </html>
