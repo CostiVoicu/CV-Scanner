@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404, HttpResponse
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from .models import Profile, KeyWord
+from django.urls import reverse
 
 # Create your views here.
 
@@ -29,3 +30,7 @@ def add_keywords(keywords_text, profile):
     for line in keywords_text.splitlines():
         words = line.split(':')
         KeyWord.objects.create(profile=profile, name=words[0], value=words[1])
+
+def delete_profile(request, id):
+    Profile.objects.filter(id=id).delete()
+    return HttpResponseRedirect(reverse('profile_list'))
