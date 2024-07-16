@@ -13,4 +13,4 @@ class KeyWord(models.Model):
     value = models.IntegerField()
 
     def __str__(self):
-        return f"{self.name} ({self.grade})"
+        return f"{self.name} ({self.value})"
