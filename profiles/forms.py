@@ -13,4 +13,4 @@ class KeyWordForm(forms.ModelForm):
         model = KeyWord
         fields = ['name', 'value']
 
-KeyWordFormSet = inlineformset_factory(Profile, KeyWord, form=KeyWordForm, extra=1, can_delete=True)
+KeyWordFormSet = inlineformset_factory(Profile, KeyWord, form=KeyWordForm, extra=1, can_delete=False)

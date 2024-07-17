@@ -18,6 +18,9 @@
         {% for form in keyword_formset %}
             <div>
                 {{ form.as_p }}
+                {% if form.instance.pk %}
+                    <button type="submit" name="delete_button" value="{{ form.instance.pk }}">Delete</button>
+                {% endif %}
             </div>
         {% endfor %}
         
