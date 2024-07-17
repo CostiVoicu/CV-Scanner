@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit profiles
+{% endblock title %}
+
+{% block header_title %}
+    <h1>Edit profiles</h1>
+{% endblock header_title %}
+
+{% block content %}
+    <form method="post" action="{% url 'edit' profile.id %}">
+        {% csrf_token %}
+        {{ profile_form.as_p }}
+        
+        <h2>KeyWords</h2>
+        {{ keyword_formset.management_form }}
+        {% for form in keyword_formset %}
+            <div>
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+        
+        <button type="submit">Save</button>
+    </form>
+{% endblock content %}

@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect
 from .models import Profile, KeyWord
 from django.urls import reverse
+from .forms import ProfileForm, KeyWordFormSet
 
 # Create your views here.
 
@@ -34,3 +35,26 @@ def add_keywords(keywords_text, profile):
 def delete_profile(request, id):
     Profile.objects.filter(id=id).delete()
     return HttpResponseRedirect(reverse('profile_list'))
+
+def edit_profile(request, id):
+    profile = get_object_or_404(Profile, id=id)
+    
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, instance=profile)
+        keyword_formset = KeyWordFormSet(request.POST, instance=profile)
+        
+        if profile_form.is_valid() and keyword_formset.is_valid():
+            profile_form.save()
+            keyword_formset.save()
+            return redirect('edit', id=profile.id)
+    else:
+        profile_form = ProfileForm(instance=profile)
+        keyword_formset = KeyWordFormSet(instance=profile)
+    
+    context = {
+        'profile_form': profile_form,
+        'keyword_formset': keyword_formset,
+        'profile': profile
+    }
+
+    return render(request, 'edit_profile.html', context)
