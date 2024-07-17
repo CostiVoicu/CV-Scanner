@@ -11,13 +11,16 @@
 {% block content %}
     <form method="post" action="{% url 'add_profile' %}">
         {% csrf_token %}
-        <label for="profile_name">Name:</label>
-        <input type="text" name="profile_name" required>
-        <br>
-        <label for="keywords">Keywords:</label>
-        <p>The format for a keyword is <i>keyword:value</i> and one keyword on a line.</p>
-        <textarea name="keywords" rows="5" cols="10"></textarea>
-        <br>
-        <button type="submit">Submit</button>
+        {{ profile_form.as_p }}
+        
+        <h2>Keywords</h2>
+        {{ keyword_formset.management_form }}
+        {% for form in keyword_formset %}
+            <div>
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+        
+        <button type="submit">Save</button>
     </form>
 {% endblock content %}

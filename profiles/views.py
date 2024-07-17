@@ -18,19 +18,23 @@ def profile_details(request, id):
 
 def add_profile(request):
     if request.method == 'POST':
-        profile_name = request.POST.get('profile_name')
-        keywords_text = request.POST.get('keywords')
-        
-        profile = Profile.objects.create(name=profile_name)
-
-        add_keywords(keywords_text, profile)
-
-    return render(request, 'add_profile.html')
+        profile_form = ProfileForm(request.POST)
+        if profile_form.is_valid():
+            profile = profile_form.save()
+            keyword_formset = KeyWordFormSet(request.POST, instance=profile)
+            if keyword_formset.is_valid():
+                keyword_formset.save()
+                return redirect('edit', id=profile.id)
+    else:
+        profile_form = ProfileForm()
+        keyword_formset = KeyWordFormSet()
     
-def add_keywords(keywords_text, profile):
-    for line in keywords_text.splitlines():
-        words = line.split(':')
-        KeyWord.objects.create(profile=profile, name=words[0], value=words[1])
+    context = {
+        'profile_form': profile_form,
+        'keyword_formset': keyword_formset,
+    }
+    print(keyword_formset)
+    return render(request, 'add_profile.html', context)
 
 def delete_profile(request, id):
     Profile.objects.filter(id=id).delete()
@@ -45,6 +49,12 @@ def edit_profile(request, id):
         
         if profile_form.is_valid() and keyword_formset.is_valid():
             profile_form.save()
+
+            for form in keyword_formset.forms:
+                if 'delete_button' in request.POST and request.POST.get('delete_button') == str(form.instance.pk):
+                    if form.instance.pk:
+                        form.instance.delete()
+
             keyword_formset.save()
             return redirect('edit', id=profile.id)
     else:
