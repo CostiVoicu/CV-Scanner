@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profiles
+{% endblock title %}
+
+{% block header_title %}
+    <h1>Profiles</h1>
+{% endblock header_title %}
+
+{% block content %}
+    <div>
+        <ul>
+            {% for profile in profiles_list %}
+                <a href="{% url "detail" profile.id %}"> {{ profile.name }} </a><a href="{% url "edit" profile.id %}">Edit</a> <a href="{% url "delete" profile.id %}">Delete</a><br>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}
