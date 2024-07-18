@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Scanner Results
+{% endblock title %}
+
+{% block header_title %}
+    <h1>Scanner Results</h1>
+{% endblock header_title %}
+
+{% block content %}
+    <div>
+        {% for file_url in file_data_urls %}
+            Candidate {{ forloop.counter }}
+            <button class="show_pdf_btn">Show CV</button>
+            <div class="pdf_file" style="display: none">
+                <iframe src="{{ file_url }}" width="600" height="400"></iframe>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script>
+        const showButtons = document.querySelectorAll('.show_pdf_btn');
+
+        showButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const pdfFile = button.nextElementSibling;
+
+                if (pdfFile.style.display === 'block') {
+                    pdfFile.style.display = 'none';
+                } else {
+                    document.querySelectorAll('.pdf_file').forEach(pdf => {
+                        pdf.style.display = 'none';
+                    });
+                    pdfFile.style.display = 'block';
+                }
+            });
+        });
+    </script>
+{% endblock script %}

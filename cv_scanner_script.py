@@ -25,19 +25,19 @@ def extract_text_from_doc(file: UploadedFile) -> str:
 
     return text.lower()
 
-def get_document_score(key_words: Dict[str, int], path: str) -> float:
+def get_document_score(key_words: Dict[str, int], document: InMemoryUploadedFile) -> float:
     """Counts every accurance of each key word in the document 
-    and computes a score for the document located at the specified path.
+    and computes a score for the document.
 
     Args:
         key_words (Dict[str, int]): The list of key words and the priority each of them has.
-        path (str): The path to the document.
+        document (InMemoryUploadedFile): The document analyzed.
 
     Returns:
         float: Score of the document.
     """
     
-    current_text_words = re.split(r',|;|:| |\n', extract_text_from_doc(path))
+    current_text_words = re.split(r',|;|:| |\n', extract_text_from_doc(document))
     key_words_doc: Dict[str, int] = {}
     for word in key_words:
         key_words_doc[word] = current_text_words.count(word)
@@ -58,6 +58,6 @@ def get_top_doc(files:List[InMemoryUploadedFile], no_persons: int, key_words: Di
         List[InMemoryUploadedFile]: List of the top documents ordered by score.
     """
 
-    documents_score: Dict[str, float] = {path: get_document_score(key_words, path) for path in files}
+    documents_score: Dict[InMemoryUploadedFile, float] = {path: get_document_score(key_words, path) for path in files}
 
     return [doc[0] for doc in sorted(documents_score.items(), key=lambda item: item[1], reverse=True)[:no_persons]]
