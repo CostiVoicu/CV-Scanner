@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    CV Scanner
+{% endblock title %}
+
+{% block header_title %}
+    <h1>CV Scanner</h1>
+{% endblock header_title %}
+
+{% block content %}
+    <div>
+        <h2>How many persons do you want to interview?</h2>
+        <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div>
+                <label for="person_count">Persons Count:</label>
+                <input type="number" name="persons_count" id="person_count">
+            </div>
+            <br>
+            <div>
+                <label for="job_profiles">Job Profiles:</label>
+                <select name="job_profile" id="job_profile">
+                    {% for profile in job_profiles %}
+                        <option value="{{ profile.id }}">{{ profile.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <div>
+                <label for="documents">Upload documents:</label>
+                <input type="file" accept=".pdf,.docx" name="documents" id="documents" multiple>
+            </div>
+
+            <button type="submit">Results</button>
+        </form>
+    </div>
+    
+{% endblock content %}
