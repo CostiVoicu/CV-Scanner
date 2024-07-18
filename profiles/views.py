@@ -8,13 +8,22 @@ from .forms import ProfileForm, KeyWordFormSet
 def profiles(request):
     profiles = Profile.objects.all()
 
-    return render(request, 'profiles_page.html', {'profiles_list': profiles})
+    context = {
+        'profiles_list': profiles
+    }
+
+    return render(request, 'profiles_page.html', context)
 
 def profile_details(request, id):
     profile = get_object_or_404(Profile, pk=id)
     keywords = profile.keywords.all()
 
-    return render(request, 'detail.html', {'profile': profile, 'keywords': keywords})
+    context = {
+        'profile': profile, 
+        'keywords': keywords
+    }
+
+    return render(request, 'detail.html', context)
 
 def add_profile(request):
     if request.method == 'POST':
