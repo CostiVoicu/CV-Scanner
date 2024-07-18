@@ -23,7 +23,7 @@
                 <label for="job_profiles">Job Profiles:</label>
                 <select name="job_profile" id="job_profile">
                     {% for profile in job_profiles %}
-                        <option value="{{ profile.name }}">{{ profile.name }}</option>
+                        <option value="{{ profile.id }}">{{ profile.name }}</option>
                     {% endfor %}
                 </select>
             </div>
