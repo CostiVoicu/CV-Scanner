@@ -11,12 +11,8 @@
 {% block content %}
     <form method="post" action="{% url 'edit' profile.id %}">
         {% csrf_token %}
-        <div class="form-row">
-            <label class="form-label">Name: </label>
-            <div class="col-md-2">
-                {{ profile_form.name}}
-            </div>
-        </div>
+
+        {{ profile_form }}
         <hr>
         
         <h2>KeyWords</h2><br>
@@ -24,18 +20,8 @@
         {{ keyword_formset.management_form }}
         {% for form in keyword_formset %}
             <div>
-                <div class="form-row">
-                    <label class="form-label">Name: </label>
-                    <div class="col-md-2">
-                        {{ form.name}}
-                    </div>
-                </div>
-                <div class="form-row">
-                    <label class="form-label">Value: </label>
-                    <div class="col-md-2">
-                        {{ form.value}}
-                    </div>
-                </div>
+                {{ form }}
+                <br>
                 {% if form.instance.pk %}
                     <button type="submit" name="delete_button" value="{{ form.instance.pk }}" class="btn btn-outline-danger bt-sm">Delete</button>
                 {% endif %}
