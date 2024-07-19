@@ -9,16 +9,16 @@
 {% endblock header_title %}
 
 {% block content %}
-    <div>
+    <ul class="list-group form-row">
         {% for file_url in file_data_urls %}
-            Candidate {{ forloop.counter }}
-            <button class="show_pdf_btn">Show CV</button>
+                Candidate {{ forloop.counter }}<br>
+                <button type="button" class="show_pdf_btn col-md-1 btn btn-info btn-sm">Show CV</button>
             <div class="pdf_file" style="display: none">
                 <iframe src="{{ file_url }}" width="600" height="400"></iframe>
             </div>
-            <br>
+            <hr>
         {% endfor %}
-    </div>
+    </ul>
 {% endblock content %}
 
 {% block script %}
