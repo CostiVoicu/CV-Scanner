@@ -11,16 +11,32 @@
 {% block content %}
     <form method="post" action="{% url 'add_profile' %}">
         {% csrf_token %}
-        {{ profile_form.as_p }}
-        
+        <div class="form-row">
+            <label class="form-label">Name: </label>
+            <div class="col-md-2">
+                {{ profile_form.name}}
+            </div>
+        </div>
+        <hr>
         <h2>Keywords</h2>
         {{ keyword_formset.management_form }}
         {% for form in keyword_formset %}
             <div>
-                {{ form.as_p }}
+                <div class="form-row">
+                    <label class="form-label">Name: </label>
+                    <div class="col-md-2">
+                        {{ form.name}}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">Value: </label>
+                    <div class="col-md-2">
+                        {{ form.value}}
+                    </div>
+                </div>
             </div>
         {% endfor %}
-        
-        <button type="submit">Save</button>
+        <br>
+        <button type="submit" class="btn btn-success btn-lg">Save</button>
     </form>
 {% endblock content %}
