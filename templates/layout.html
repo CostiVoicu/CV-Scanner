@@ -10,17 +10,19 @@
         {% endblock title %}
     </title>
     <link rel="stylesheet" href="{% static "css/style.css" %}">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
 </head>
 <body>
+    <nav class="nav bg-info">
+        <a class="nav-link link-light" href="/">Scan CVs</a>
+        <a class="nav-link link-light" href="/job_profiles">Job Profiles</a>
+        <a class="nav-link link-light" href="/job_profiles/add_profile">Add Job Profiles</a>
+    </nav>
     <header>
         {% block header_title %}
         {% endblock header_title %}
     </header>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/job_profiles">Job Profiles</a>
-        <a href="/scanner">Scan CVs</a>
-    </nav>
     <main>
         {% block content %}
         {% endblock content %}

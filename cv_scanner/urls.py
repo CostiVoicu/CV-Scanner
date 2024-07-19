@@ -19,7 +19,6 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.homepage),
-    path('scanner/', include('documents_app.urls')),
+    path('', include('documents_app.urls')),
     path('job_profiles/', include('profiles.urls'))
 ]
