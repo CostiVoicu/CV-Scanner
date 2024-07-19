@@ -12,7 +12,12 @@
     <div>
         <ul>
             {% for profile in profiles_list %}
-                <a href="{% url "detail" profile.id %}"> {{ profile.name }} </a><a href="{% url "edit" profile.id %}">Edit</a> <a href="{% url "delete" profile.id %}">Delete</a><br>
+                <li>
+                    <a type="button" href="{% url "detail" profile.id %}" class="btn btn-primary btn-lg"> {{ profile.name }} </a>
+                    <a type="button" href="{% url "edit" profile.id %}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                    <a type="button"  href="{% url "delete" profile.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+                </li>
+                <br><br>
             {% endfor %}
         </ul>
     </div>
