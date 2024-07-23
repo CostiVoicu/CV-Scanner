@@ -42,7 +42,6 @@ def add_profile(request):
         'profile_form': profile_form,
         'keyword_formset': keyword_formset,
     }
-    print(keyword_formset)
     return render(request, 'add_profile.html', context)
 
 def delete_profile(request, id):
