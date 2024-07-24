@@ -16,22 +16,46 @@
             <div class="col-md-2">
                 {{ profile_form.name}}
             </div>
+            {% if profile_form.name.errors %}
+                {% for error in profile_form.name.errors %}
+                    <div class="text-danger"> {{ error }} </div>
+                {% endfor %}
+            {% endif %}
         </div>
         <hr>
         <h2>Keywords</h2>
+
+        {% if keyword_formset.non_form_errors %}
+            <div class="form-row">
+                {% for error in keyword_formset.non_form_errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         {{ keyword_formset.management_form }}
         {% for form in keyword_formset %}
             <div>
                 <div class="form-row">
-                    <label class="form-label">Name: </label>
-                    <div class="col-md-2">
+                    <div class="form-group col-md-2">
+                        {{ form.name.label_tag }}
                         {{ form.name}}
+                        {% if form.name.errors %}
+                            {% for error in form.name.errors %}
+                                <div class="text-danger"> {{ error }} </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-row">
-                    <label class="form-label">Value: </label>
-                    <div class="col-md-2">
+                    <div class="form-group col-md-2">
+                        {{ form.value.label_tag}}
                         {{ form.value}}
+                        {% if form.value.errors %}
+                            {% for error in form.value.errors %}
+                                <div class="text-danger"> {{ error }} </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>

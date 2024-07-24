@@ -26,6 +26,9 @@ def profile_details(request, id):
     return render(request, 'detail.html', context)
 
 def add_profile(request):
+    profile_form = ProfileForm()
+    keyword_formset = KeyWordFormSet()
+
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST)
         if profile_form.is_valid():
@@ -34,9 +37,6 @@ def add_profile(request):
             if keyword_formset.is_valid():
                 keyword_formset.save()
                 return redirect('edit', id=profile.id)
-    else:
-        profile_form = ProfileForm()
-        keyword_formset = KeyWordFormSet()
     
     context = {
         'profile_form': profile_form,
