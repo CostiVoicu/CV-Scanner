@@ -58,7 +58,5 @@ class RequiredFormSet(BaseInlineFormSet):
         
         if not any(form.cleaned_data for form in self.forms):
             raise ValidationError('Please add at least one keyword.')
-        
-        
 
-KeyWordFormSet = inlineformset_factory(Profile, KeyWord, form=KeyWordForm, formset=RequiredFormSet, extra=1, can_delete=False)
+KeyWordFormSet = inlineformset_factory(Profile, KeyWord, form=KeyWordForm, formset=RequiredFormSet, extra=1,  can_delete=False)

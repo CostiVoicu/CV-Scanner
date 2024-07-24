@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect
-from .models import Profile, KeyWord
+from .models import Profile
 from django.urls import reverse
 from .forms import ProfileForm, KeyWordFormSet
 
@@ -50,14 +50,15 @@ def delete_profile(request, id):
 
 def edit_profile(request, id):
     profile = get_object_or_404(Profile, id=id)
+    profile_form = ProfileForm(instance=profile)
+    keyword_formset = KeyWordFormSet(instance=profile)
     
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST, instance=profile)
         keyword_formset = KeyWordFormSet(request.POST, instance=profile)
-        
+
         if profile_form.is_valid() and keyword_formset.is_valid():
             profile_form.save()
-
             for form in keyword_formset.forms:
                 if 'delete_button' in request.POST and request.POST.get('delete_button') == str(form.instance.pk):
                     if form.instance.pk:
@@ -65,10 +66,7 @@ def edit_profile(request, id):
 
             keyword_formset.save()
             return redirect('edit', id=profile.id)
-    else:
-        profile_form = ProfileForm(instance=profile)
-        keyword_formset = KeyWordFormSet(instance=profile)
-    
+        
     context = {
         'profile_form': profile_form,
         'keyword_formset': keyword_formset,

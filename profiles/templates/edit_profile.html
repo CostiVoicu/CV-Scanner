@@ -12,17 +12,41 @@
     <form method="post" action="{% url 'edit' profile.id %}">
         {% csrf_token %}
 
-        {{ profile_form }}
+        {{ profile_form.non_field_errors }}
+        <div class="form-group">
+            {{ profile_form.name.label_tag }}
+            {{ profile_form.name }}
+            {% for error in profile_form.name.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+        
         <hr>
         
         <h2>KeyWords</h2><br>
 
         {{ keyword_formset.management_form }}
         {% for form in keyword_formset %}
+            {{form.id}}
             <div>
-                {{ form }}
+                {{ form.non_field_errors }}
+                <div class="form-group">
+                    {{ form.name.label_tag }}
+                    {{ form.name }}
+                    {% for error in form.name.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
                 <br>
-                {% if form.instance.pk %}
+                <div class="form-group">
+                    {{ form.value.label_tag }}
+                    {{ form.value }}
+                    {% for error in form.value.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <br>
+                {% if form.instance.pk and keyword_formset.total_form_count > 2%}
                     <button type="submit" name="delete_button" value="{{ form.instance.pk }}" class="btn btn-outline-danger bt-sm">Delete</button>
                 {% endif %}
             </div>
