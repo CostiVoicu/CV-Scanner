@@ -1,5 +1,5 @@
-from django.test import TestCase, Client
-from profiles.models import Profile, KeyWord
+from django.test import TestCase
+from profiles.models import Profile
 from profiles.forms import ProfileForm, KeyWordForm, KeyWordFormSet
 
 class TestProfileForm(TestCase):
