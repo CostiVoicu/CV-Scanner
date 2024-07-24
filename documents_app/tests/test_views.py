@@ -19,6 +19,7 @@ class TestView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'documents_page.html')
         self.assertIn('job_profiles', response.context)
+        self.assertIn('count_error', response.context)
         self.assertQuerysetEqual(response.context['job_profiles'], [self.profile])
 
     @patch('documents_app.views.convertor_to_custom_format')

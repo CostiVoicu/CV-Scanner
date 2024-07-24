@@ -17,9 +17,10 @@
             <div class="form-row">
                 <label for="person_count" class="form-label">Persons Count:</label>
                 <div class="col-sm-1">
-                    <input type="number" name="persons_count" id="person_count" class="form-control">
+                    <input type="number" name="persons_count" id="person_count" class="form-control" required>
                 </div>
             </div>
+            <p style="color: red">{{ count_error }}</p>
             <br>
 
             <h2>Choose a job profile</h2>
@@ -38,8 +39,9 @@
             <h2>Choose the CVs you want to analyze</h2>
             <div>
                 <label for="documents" class="form-label">Upload documents:</label>
-                <input type="file" accept=".pdf,.docx" name="documents" id="documents" multiple class="form-control-file">
+                <input type="file" accept=".pdf,.docx" name="documents" id="documents" multiple class="form-control-file" required>
             </div>
+            <p style="color: red">{{ documents_error }}</p>
             <br>
             <button type="submit" class="btn btn-outline-primary btn-lg">Results</button>
         </form>
