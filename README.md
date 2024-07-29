@@ -26,8 +26,8 @@ pip install -r requirements.txt
 ```
 
 ## Add environment variables
-In the same directory as *settings.py*, create a file called *.env*.
-Declare your environment variables in *.env*.
+In the root directory, create a file called *.env*.
+Declare your environment variables in *.env*. Use them to make a connection with a PostgreSQL database.
 ```
 SECRET_KEY=
 DATABASE_NAME=
