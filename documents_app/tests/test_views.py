@@ -4,6 +4,7 @@ from profiles.models import Profile, KeyWord
 from django.core.files.uploadedfile import SimpleUploadedFile
 from unittest.mock import patch, MagicMock
 import base64
+from documents_app.views import convertor_to_custom_format
 
 class TestView(TestCase):
 
@@ -56,3 +57,15 @@ class TestView(TestCase):
         })
 
         self.assertEqual(response.status_code, 404)
+
+    def test_convertor_to_custom_format(self):
+        input_data = [
+            {'name': 'python', 'value': 10},
+            {'name': 'django', 'value': 8},
+        ]
+        expected_output = {
+            'python': 10,
+            'django': 8,
+        }
+        result = convertor_to_custom_format(input_data)
+        self.assertEqual(result, expected_output)
