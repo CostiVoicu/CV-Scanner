@@ -32,9 +32,10 @@ def add_profile(request):
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST)
         if profile_form.is_valid():
-            profile = profile_form.save()
+            profile = profile_form.save(commit=False)
             keyword_formset = KeyWordFormSet(request.POST, instance=profile)
             if keyword_formset.is_valid():
+                profile.save()
                 keyword_formset.save()
                 return redirect('edit', id=profile.id)
     
