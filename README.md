@@ -1,14 +1,16 @@
 # CV-Scanner
 
-- [Steps for building the project](#steps-for-building-the-project)
+- [Steps for Setting Up the Project Locally](#steps-for-setting-up-the-project-locally)
     - [Create virtual environment](#create-virtual-environment)
     - [Activate virtual environment](#activate-virtual-environment)
     - [Install the required packages](#install-the-required-packages)
-- [Add environment variables](#add-environment-variables)
-- [Apply the migrations](#apply-the-migrations)
-- [Run Django project](#run-django-project)
+    - [Add environment variables](#add-environment-variables)
+    - [Apply the migrations](#apply-the-migrations)
+    - [Run Django project](#run-django-project)
+- [Steps for Setting Up the Project Using Docker](#steps-for-setting-up-the-project-using-docker)
+    - [Build the docker images and run the containers](#build-the-docker-images-and-run-the-containers)
 
-## Steps for building the project
+## Steps for setting up the project locally
 
 ### Create virtual environment
 ```bash
@@ -25,24 +27,33 @@ source .venv/Scripts/activate
 pip install -r requirements.txt
 ```
 
-## Add environment variables
+### Add environment variables
 In the root directory, create a file called *.env*.
-Declare your environment variables in *.env*. Use them to make a connection with a PostgreSQL database.
+Declare your environment variables in *.env*. Use them to make a connection with an already existing PostgreSQL database.
 ```
 SECRET_KEY=
-DATABASE_NAME=
-DATABASE_USER=
-DATABASE_PASSWORD=
-DATABASE_HOST=
-DATABASE_PORT=
+DEBUG=
+ALLOWED_HOST=
+POSTGRES_DB=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_HOST=
+POSTGRES_PORT=
 ```
 
-## Apply the migrations
+### Apply the migrations
 ```bash
 py manage.py migrate
 ```
 
-## Run Django project
+### Run Django project
 ```bash
 py manage.py runserver
+```
+
+## Steps for setting up the project using docker
+
+### Build the docker images and run the containers
+```bash
+docker-compose up --build
 ```
