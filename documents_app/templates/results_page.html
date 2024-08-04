@@ -9,33 +9,55 @@
 {% endblock header_title %}
 
 {% block content %}
-    <ul class="list-group form-row">
-        {% for file_url in file_data_urls %}
-                Candidate {{ forloop.counter }}<br>
-                <button type="button" class="show_pdf_btn col-md-1 btn btn-info btn-sm">Show CV</button>
-            <div class="pdf_file" style="display: none">
-                <iframe src="{{ file_url }}" width="600" height="400"></iframe>
+    <div class="container-fluid mx-0">
+        <div class="row justify-content-between">
+            <div class="col-sm-4">
+                <ul class="list-group form-row">
+                {% for file_url in file_data_urls %}
+                    <div class="d-flex justify-content-between align-items-center row-sm-1 mb-2">
+                        <span>Candidate {{ forloop.counter }}</span>
+                        <button type="button" class="show_pdf_btn btn btn-info btn-sm mx-4" data-file-url="{{ file_url }}">Show CV</button>
+                    </div>
+                    <hr>
+                {% endfor %}
+                </ul>
             </div>
-            <hr>
-        {% endfor %}
-    </ul>
+            <div id="pdf_container" class="pdf_file col-sm-8" style="display: none">
+                <iframe id="pdf_frame"></iframe>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 
 {% block script %}
     <script>
-        const showButtons = document.querySelectorAll('.show_pdf_btn');
+        const buttons = document.querySelectorAll('.show_pdf_btn');
+        const pdfContainer = document.getElementById('pdf_container');
+        const pdfFrame = document.getElementById('pdf_frame');
 
-        showButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const pdfFile = button.nextElementSibling;
-
-                if (pdfFile.style.display === 'block') {
-                    pdfFile.style.display = 'none';
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                const fileUrl = this.getAttribute('data-file-url');
+                if (pdfContainer.style.display === 'block' && pdfFrame.src === fileUrl) {
+                    pdfContainer.style.display = 'none';
+                    pdfFrame.src = ''; 
+                    this.textContent = 'Show CV';
+                    this.classList.remove('btn-secondary');
+                    this.classList.add('btn-info');
                 } else {
-                    document.querySelectorAll('.pdf_file').forEach(pdf => {
-                        pdf.style.display = 'none';
+                    pdfFrame.src = fileUrl;
+                    pdfContainer.style.display = 'block';
+                    this.textContent = 'Hide CV';
+                    this.classList.add('btn-secondary');
+                    this.classList.remove('btn-info');
+
+                    buttons.forEach(btn => {
+                        if (btn !== this) {
+                            btn.textContent = 'Show CV';
+                            btn.classList.remove('btn-secondary');
+                            btn.classList.add('btn-info');
+                        }
                     });
-                    pdfFile.style.display = 'block';
                 }
             });
         });
