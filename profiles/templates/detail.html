@@ -9,11 +9,23 @@
 {% endblock header_title %}
 
 {% block content %}
-    <div>
-        <ul>
-            {% for word in keywords %}
-                <li> Keyword: <em>{{ word.name }}</em> | Value: <em>{{ word.value }}</em> </li>
-            {% endfor %}
-        </ul>
+    <div class="container-fluid mt-4 mx-2">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-4">Keywords</h2>
+                <div class="row">
+                    {% for word in keywords %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary">{{ word.name }}</h5>
+                                    <p class="card-text">Value: <span class="font-weight-bold">{{ word.value }}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock content %}

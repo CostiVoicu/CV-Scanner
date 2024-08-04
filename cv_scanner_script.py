@@ -40,7 +40,7 @@ def get_document_score(key_words: Dict[str, int], document: InMemoryUploadedFile
     current_text_words = re.split(r',|;|:| |\n', extract_text_from_doc(document))
     key_words_doc: Dict[str, int] = {}
     for word in key_words:
-        key_words_doc[word] = current_text_words.count(word)
+        key_words_doc[word] = current_text_words.count(word.lower())
 
     score: float = sum([0.7*key_words[word] + 0.3*key_words_doc[word] for word in key_words])
 
