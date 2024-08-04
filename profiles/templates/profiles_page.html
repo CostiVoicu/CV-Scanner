@@ -9,16 +9,18 @@
 {% endblock header_title %}
 
 {% block content %}
-    <div>
-        <ul>
-            {% for profile in profiles_list %}
-                <li>
-                    <a type="button" href="{% url "detail" profile.id %}" class="btn btn-primary btn-lg"> {{ profile.name }} </a>
-                    <a type="button" href="{% url "edit" profile.id %}" class="btn btn-outline-secondary btn-sm">Edit</a>
-                    <a type="button"  href="{% url "delete" profile.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
-                </li>
-                <br><br>
-            {% endfor %}
-        </ul>
+    <div class="list-group">
+        {% for profile in profiles_list %}
+            <div class="list-group-item d-flex justify-content-between align-items-center mb-3 p-3 shadow-sm rounded">
+                <div class="d-flex flex-column">
+                    <h5 class="mb-1">{{ profile.name }}</h5>
+                </div>
+                <div class="btn-group" role="group" aria-label="Profile Actions">
+                    <a type="button" href="{% url 'detail' profile.id %}" class="btn btn-primary btn-lg">View</a>
+                    <a type="button" href="{% url 'edit' profile.id %}" class="btn btn-outline-secondary btn-lg mx-2">Edit</a>
+                    <a type="button" href="{% url 'delete' profile.id %}" class="btn btn-outline-danger btn-lg">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock content %}
