@@ -11,48 +11,55 @@
 {% block content %}
     <form method="post" action="{% url 'edit' profile.id %}">
         {% csrf_token %}
-
         {{ profile_form.non_field_errors }}
-        <div class="form-group">
+        <div class="row">
             {{ profile_form.name.label_tag }}
-            {{ profile_form.name }}
-            {% for error in profile_form.name.errors %}
-                <div class="text-danger">{{ error }}</div>
-            {% endfor %}
         </div>
-        
-        <hr>
-        
-        <h2>KeyWords</h2><br>
-
-        {{ keyword_formset.management_form }}
-        {% for form in keyword_formset %}
-            {{form.id}}
-            <div>
-                {{ form.non_field_errors }}
-                <div class="form-group">
-                    {{ form.name.label_tag }}
-                    {{ form.name }}
-                    {% for error in form.name.errors %}
-                        <div class="text-danger">{{ error }}</div>
-                    {% endfor %}
-                </div>
-                <br>
-                <div class="form-group">
-                    {{ form.value.label_tag }}
-                    {{ form.value }}
-                    {% for error in form.value.errors %}
-                        <div class="text-danger">{{ error }}</div>
-                    {% endfor %}
-                </div>
-                <br>
-                {% if form.instance.pk and keyword_formset.total_form_count > 2%}
-                    <button type="submit" name="delete_button" value="{{ form.instance.pk }}" class="btn btn-outline-danger bt-sm">Delete</button>
-                {% endif %}
+        <div class="row d-flex align-items-center">
+            <div class="col-4 col-md-3 col-lg-2">
+                {{ profile_form.name }}
+                {% for error in profile_form.name.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
             </div>
-            <hr>
-        {% endfor %}
-        
-        <button type="submit" class="btn btn-success btn-lg">Save</button>
+            <div class="col-4 col-md-3 col-lg-2">
+                <button type="submit" class="btn btn-success btn-lg">Save</button>
+            </div>
+        </div>
+        <div class="container-fluid px-0">
+            <div class="row card-deck">
+                <div class="col">
+                    <h2 class="mb-4">Keywords</h2>
+                    <div class="row d-flex align-between">
+                        {{ keyword_formset.management_form }}
+                        {% for form in keyword_formset.forms reversed %}
+                            {{form.id}}
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                                <div class="card shadow-sm h-100 d-flex flex-column mx-2 mb-3 p-3">
+                                    {{ form.non_field_errors }}
+                                    <div class="form-group">
+                                        {{ form.name.label_tag }}
+                                        {{ form.name }}
+                                        {% for error in form.name.errors %}
+                                            <div class="text-danger">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.value.label_tag }}
+                                        {{ form.value }}
+                                        {% for error in form.value.errors %}
+                                            <div class="text-danger">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    {% if form.instance.pk and keyword_formset.total_form_count > 2%}
+                                        <button type="submit" name="delete_button" value="{{ form.instance.pk }}" class="btn btn-outline-danger bt-sm btn-custom-size">Delete</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
 {% endblock content %}

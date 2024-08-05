@@ -42,8 +42,8 @@ class KeyWordForm(forms.ModelForm):
         model = KeyWord
         fields = ['name', 'value']
         widgets  = {
-            'name': forms.TextInput(attrs={'class': 'form-control custom-width'}),
-            'value': forms.NumberInput(attrs={'class': 'form-control custom-width'})
+            'name': forms.TextInput(attrs={'class': 'form-control keyword-card'}),
+            'value': forms.NumberInput(attrs={'class': 'form-control keyword-card'})
         }
         
         labels = {

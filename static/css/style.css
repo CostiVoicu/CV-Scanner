@@ -6,6 +6,11 @@
     max-width: 200px;
 }
 
+.keyword-card{
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+
 .pdf_file {
     max-width: 100%; 
     overflow: hidden; 
@@ -16,7 +21,7 @@
 }
 
 .btn-custom-size{
-    width: 300px;
+    max-width: 300px;
 }
 
 .profile-card{
