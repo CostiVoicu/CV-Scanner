@@ -5,62 +5,66 @@
 {% endblock title %}
 
 {% block header_title %}
-    <h1>Add profile</h1>
+    <h1 class="text-center mt-4">Add profile</h1>
 {% endblock header_title %}
 
 {% block content %}
     <form method="post" action="{% url 'add_profile' %}">
         {% csrf_token %}
-        <div class="form-row">
-            <label class="form-label">Name: </label>
-            <div class="col-md-2">
-                {{ profile_form.name}}
+        <div class="container d-flex justify-content-center flex-column align-items-center">
+            
+            <div class="card profile-card shadow-sm mb-5 text-center">
+                <div class="card-header">
+                    Profile
+                </div>
+                <div class="card-body d-flex flex-column justify-content-center align-items-center">
+                    <label class="form-label">Name: </label>
+                        {{ profile_form.name}}
+                    {% if profile_form.name.errors %}
+                        {% for error in profile_form.name.errors %}
+                            <div class="text-danger"> {{ error }} </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
             </div>
-            {% if profile_form.name.errors %}
-                {% for error in profile_form.name.errors %}
-                    <div class="text-danger"> {{ error }} </div>
-                {% endfor %}
-            {% endif %}
+            <div class="card profile-card shadow-sm mb-5 text-center">
+                <div class="card-header">
+                    Keyword
+                </div>
+                <div class="card-body d-flex justify-content-center">
+                    {% if keyword_formset.non_form_errors %}
+                        {% for error in keyword_formset.non_form_errors %}
+                            <div class="text-danger">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {{ keyword_formset.management_form }}
+                    {% for form in keyword_formset %}
+                        <div class="form-row">
+                            <div class="form-group col mb-2">
+                                {{ form.name.label_tag }}
+                                {{ form.name}}
+                                {% if form.name.errors %}
+                                    {% for error in form.name.errors %}
+                                        <div class="text-danger"> {{ error }} </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col mb-2">
+                                    {{ form.value.label_tag}}
+                                    {{ form.value}}
+                                    {% if form.value.errors %}
+                                        {% for error in form.value.errors %}
+                                            <div class="text-danger"> {{ error }} </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success btn-lg btn-custom-size">Save</button>
         </div>
-        <hr>
-        <h2>Keywords</h2>
-
-        {% if keyword_formset.non_form_errors %}
-            <div class="form-row">
-                {% for error in keyword_formset.non_form_errors %}
-                    <div class="text-danger">{{ error }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-
-        {{ keyword_formset.management_form }}
-        {% for form in keyword_formset %}
-            <div>
-                <div class="form-row">
-                    <div class="form-group col-md-2">
-                        {{ form.name.label_tag }}
-                        {{ form.name}}
-                        {% if form.name.errors %}
-                            {% for error in form.name.errors %}
-                                <div class="text-danger"> {{ error }} </div>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-2">
-                        {{ form.value.label_tag}}
-                        {{ form.value}}
-                        {% if form.value.errors %}
-                            {% for error in form.value.errors %}
-                                <div class="text-danger"> {{ error }} </div>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-        <br>
-        <button type="submit" class="btn btn-success btn-lg">Save</button>
     </form>
 {% endblock content %}

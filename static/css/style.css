@@ -15,6 +15,10 @@
     height: 75vh; 
 }
 
-#results_btn{
+.btn-custom-size{
     width: 300px;
+}
+
+.profile-card{
+    width: 30vw;
 }
