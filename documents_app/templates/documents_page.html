@@ -12,41 +12,35 @@
     <form method="post" action="" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="container-fluid">
-            <div class="row my-5 text-center">
-                <div class="col-sm-4">
-                    <h2>How many persons do you want to interview?</h2>
+            <div class="row mb-3 text-center">
+                <div class="col-md-4 col-xs-6 d-flex flex-column justify-content-between align-items-center">
+                    <h2 class="my-2 mt-4">How many persons do you want to interview?</h2>
+                    <div>
+                        <label for="person_count" class="form-label">Persons Count:</label>
+                        <input type="number" name="persons_count" id="person_count" class="form-control" required>
+                        <p class="mb-0" style="color: red">{{ count_error }}</p>
+                    </div>
                 </div>
-                <div class="col-sm-4">
-                    <h2>Choose a job profile</h2>
+                <div class="col-md-4 col-xs-6 d-flex flex-column justify-content-between align-items-center">
+                    <h2 class="my-2 mt-4">Choose a job profile</h2>
+                    <div>
+                        <label for="job_profiles" class="form-label">Job Profiles:</label>
+                        <select name="job_profile" id="job_profile" class="form-select">
+                            {% for profile in job_profiles %}
+                                <option value="{{ profile.id }}">{{ profile.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
-                <div class="col-sm-4">
-                    <h2>Choose the CVs you want to analyze</h2>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-4 d-flex flex-column align-items-center">
-                    <label for="person_count" class="form-label">Persons Count:</label>
-                    <input type="number" name="persons_count" id="person_count" class="form-control" required>
-                </div>
-                <div class="col-sm-4 d-flex flex-column align-items-center">
-                    <label for="job_profiles" class="form-label">Job Profiles:</label>
-                    <select name="job_profile" id="job_profile" class="form-select">
-                        {% for profile in job_profiles %}
-                            <option value="{{ profile.id }}">{{ profile.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-sm-4 d-flex flex-column align-items-center">
-                    <label for="documents" class="form-label">Upload documents:</label>
-                    <input type="file" accept=".pdf,.docx" name="documents" id="documents" multiple class="form-control" required>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-4 text-center">
-                    <p style="color: red">{{ count_error }}</p>
+                <div class="col-md-4 col-xs-6 d-flex flex-column justify-content-between align-items-center">
+                    <h2 class="my-2 mt-4">Choose the CVs you want to analyze</h2>
+                    <div>
+                        <label for="documents" class="form-label">Upload documents:</label>
+                        <input type="file" accept=".pdf,.docx" name="documents" id="documents" multiple class="form-control" required>
+                    </div>
                 </div>
             </div>
-            <div class="row-md mt-5">
+            <div class="row-md mt-2 mt-sm-0">
                 <div class="col-md-12 d-flex justify-content-center">
                     <button type="submit" class="btn btn-outline-primary btn-lg btn-custom-size">Results</button>
                 </div>
