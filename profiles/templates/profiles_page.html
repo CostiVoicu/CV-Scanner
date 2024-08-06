@@ -16,9 +16,9 @@
                     <h5 class="mb-1">{{ profile.name }}</h5>
                 </div>
                 <div class="btn-group" role="group" aria-label="Profile Actions">
-                    <a type="button" href="{% url 'detail' profile.id %}" class="btn btn-primary btn-lg">View</a>
-                    <a type="button" href="{% url 'edit' profile.id %}" class="btn btn-outline-secondary btn-lg mx-2">Edit</a>
-                    <a type="button" href="{% url 'delete' profile.id %}" class="btn btn-outline-danger btn-lg">Delete</a>
+                    <a type="button" href="{% url 'detail' profile.id %}" class="btn btn-primary btn-sm">View</a>
+                    <a type="button" href="{% url 'edit' profile.id %}" class="btn btn-outline-secondary btn-sm mx-2">Edit</a>
+                    <a type="button" href="{% url 'delete' profile.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
                 </div>
             </div>
         {% endfor %}
