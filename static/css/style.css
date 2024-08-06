@@ -24,6 +24,12 @@
     max-width: 300px;
 }
 
+.results-div{
+    max-width: 300px;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
 .w-xs-75 {
     width: 100% !important;
 }

@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block header_title %}
-    <h1>CV Scanner</h1>
+    <h1 class="text-center mt-4">CV Scanner</h1>
 {% endblock header_title %}
 
 {% block content %}
@@ -14,16 +14,16 @@
         <div class="container-fluid">
             <div class="row mb-3 text-center">
                 <div class="col-md-4 col-xs-6 d-flex flex-column justify-content-between align-items-center">
-                    <h2 class="my-2 mt-4">How many persons do you want to interview?</h2>
-                    <div>
+                    <h3 class="my-2 mt-4">How many persons do you want to interview?</h3>
+                    <div class="mt-4 w-100">
                         <label for="person_count" class="form-label">Persons Count:</label>
                         <input type="number" name="persons_count" id="person_count" class="form-control" required>
                         <p class="mb-0" style="color: red">{{ count_error }}</p>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-6 d-flex flex-column justify-content-between align-items-center">
-                    <h2 class="my-2 mt-4">Choose a job profile</h2>
-                    <div>
+                    <h3 class="my-2 mt-4">Choose a job profile</h3>
+                    <div class="mt-4 w-100">
                         <label for="job_profiles" class="form-label">Job Profiles:</label>
                         <select name="job_profile" id="job_profile" class="form-select">
                             {% for profile in job_profiles %}
@@ -33,16 +33,16 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-6 d-flex flex-column justify-content-between align-items-center">
-                    <h2 class="my-2 mt-4">Choose the CVs you want to analyze</h2>
-                    <div>
+                    <h3 class="my-2 mt-4">Choose the CVs you want to analyze</h3>
+                    <div class="mt-4 w-100">
                         <label for="documents" class="form-label">Upload documents:</label>
                         <input type="file" accept=".pdf,.docx" name="documents" id="documents" multiple class="form-control" required>
                     </div>
                 </div>
             </div>
-            <div class="row-md mt-2 mt-sm-0">
-                <div class="col-md-12 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-outline-primary btn-lg btn-custom-size">Results</button>
+            <div class="row-md d-flex justify-content-center mt-0 my-sm-4">
+                <div class="col-12 d-flex results-div">
+                    <button type="submit" class="btn btn-outline-primary btn-lg w-100">Results</button>
                 </div>
             </div>
         </div>
