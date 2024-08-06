@@ -12,18 +12,20 @@
     <form method="post" action="{% url 'edit' profile.id %}">
         {% csrf_token %}
         {{ profile_form.non_field_errors }}
-        <div class="row">
-            {{ profile_form.name.label_tag }}
-        </div>
-        <div class="row d-flex align-items-center">
-            <div class="col-4 col-md-3 col-lg-2">
-                {{ profile_form.name }}
-                {% for error in profile_form.name.errors %}
-                    <div class="text-danger">{{ error }}</div>
-                {% endfor %}
+        <div class="row mb-5 d-flex align-items-center w-100 justify-content-center p-0">
+            <div class="row">
+                <h5>{{ profile_form.name.label_tag }}</h5>
             </div>
-            <div class="col-4 col-md-3 col-lg-2">
-                <button type="submit" class="btn btn-success btn-lg">Save</button>
+            <div class="row align-items-center">
+                <div class="col-sm-5 col-md-4 col-lg-3">
+                    {{ profile_form.name }}
+                    {% for error in profile_form.name.errors %}
+                        <div class="text-danger">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                <div class="col-sm-3 col-md-2 col-xl-1">
+                    <button type="submit" class="btn btn-success btn-lg w-100">Save</button>
+                </div>
             </div>
         </div>
         <div class="container-fluid px-0">
@@ -34,17 +36,17 @@
                         {{ keyword_formset.management_form }}
                         {% for form in keyword_formset.forms reversed %}
                             {{form.id}}
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div class="card shadow-sm h-100 d-flex flex-column mx-2 mb-3 p-3">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                                <div class="card shadow h-100 d-flex flex-column mb-3 p-3">
                                     {{ form.non_field_errors }}
-                                    <div class="form-group">
+                                    <div class="">
                                         {{ form.name.label_tag }}
                                         {{ form.name }}
                                         {% for error in form.name.errors %}
                                             <div class="text-danger">{{ error }}</div>
                                         {% endfor %}
                                     </div>
-                                    <div class="form-group">
+                                    <div class="">
                                         {{ form.value.label_tag }}
                                         {{ form.value }}
                                         {% for error in form.value.errors %}
@@ -52,7 +54,7 @@
                                         {% endfor %}
                                     </div>
                                     {% if form.instance.pk and keyword_formset.total_form_count > 2%}
-                                        <button type="submit" name="delete_button" value="{{ form.instance.pk }}" class="btn btn-outline-danger bt-sm btn-custom-size">Delete</button>
+                                        <button type="submit" name="delete_button" value="{{ form.instance.pk }}" class="btn btn-outline-danger bt-sm ">Delete</button>
                                     {% endif %}
                                 </div>
                             </div>

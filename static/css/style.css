@@ -3,11 +3,10 @@
 }
 
 .custom-width {
-    max-width: 200px;
+    max-width: 100%;
 }
 
 .keyword-card{
-    max-width: 300px;
     margin-bottom: 20px;
 }
 
