@@ -24,6 +24,12 @@
     max-width: 300px;
 }
 
-.profile-card{
-    width: 30vw;
+.w-xs-75 {
+    width: 100% !important;
+}
+
+@media (min-width: 768px) {
+    .w-md-40 {
+        width: 40% !important;
+    }
 }

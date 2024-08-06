@@ -12,8 +12,7 @@
     <form method="post" action="{% url 'add_profile' %}">
         {% csrf_token %}
         <div class="container d-flex justify-content-center flex-column align-items-center">
-            
-            <div class="card profile-card shadow-sm mb-5 text-center">
+            <div class="card w-md-40 w-xs-75 shadow mb-5 text-center">
                 <div class="card-header">
                     Profile
                 </div>
@@ -27,7 +26,7 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="card profile-card shadow-sm mb-5 text-center">
+            <div class="card w-md-40 w-xs-75 shadow mb-5 text-center">
                 <div class="card-header">
                     Keyword
                 </div>
