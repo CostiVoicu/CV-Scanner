@@ -7,6 +7,7 @@
 }
 
 .keyword-card{
+    max-width: 100%;
     margin-bottom: 20px;
 }
 
@@ -29,12 +30,24 @@
     margin-bottom: 40px;
 }
 
-.w-xs-75 {
+.w-xs-100 {
     width: 100% !important;
 }
 
-@media (min-width: 768px) {
-    .w-md-40 {
+@media (min-width: 576px) {
+    .w-sm-60 {
+        width: 60% !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .w-lg-40 {
         width: 40% !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .w-xl-30 {
+        width: 30% !important;
     }
 }
