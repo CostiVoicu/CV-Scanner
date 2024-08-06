@@ -10,8 +10,8 @@
 
 {% block content %}
     <div class="container-fluid mx-0">
-        <div class="row justify-content-between">
-            <div class="col-sm-4">
+        <div class="row justify-content-between flex-md-row flex-column-reverse">
+            <div class="col-12 col-md-4">
                 <ul class="list-group form-row">
                 {% for file_url in file_data_urls %}
                     <div class="d-flex justify-content-between align-items-center row-sm-1 mb-2">
@@ -22,7 +22,7 @@
                 {% endfor %}
                 </ul>
             </div>
-            <div id="pdf_container" class="pdf_file col-sm-8" style="display: none">
+            <div id="pdf_container" class="pdf_file col-12 col-md-8 mb-3" style="display: none">
                 <iframe id="pdf_frame"></iframe>
             </div>
         </div>
