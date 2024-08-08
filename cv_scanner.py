@@ -1,8 +1,11 @@
 import re
 import os
+import nltk.downloader
 import pymupdf
-import spacy
-from typing import Dict, List
+import nltk
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+from typing import Dict, List, Tuple
 
 def extract_text_from_doc(doc_path: str) -> str:
     """Extract text from a document located at fpath.
@@ -52,10 +55,14 @@ def get_lemmatized_text(path: str) -> str:
     Returns:
         str: Lemmatized text.
     """
-    nlp = spacy.load('en_core_web_sm')
+    download_nltk_packages()
 
-    doc_text: str = nlp(extract_text_from_doc(path))
-    lemmatized_tokens: List[str] = [token.lemma_ for token in doc_text]
+    lemmatizer = WordNetLemmatizer()
+
+    doc_text: str = extract_text_from_doc(path)
+    tokens: List[str] = word_tokenize(doc_text)
+
+    lemmatized_tokens: List[str] = [lemmatizer.lemmatize(token) for token in tokens]
 
     return ' '.join(lemmatized_tokens)
 
@@ -70,14 +77,26 @@ def get_document_score(key_words: Dict[str, int], path: str) -> float:
     Returns:
         float: Score of the document.
     """
-    current_text_words = re.split(r',|;|:| |\n', extract_text_from_doc(path))
-    key_words_doc: Dict[str, int] = {}
+    normal_text = extract_text_from_doc(path)
+    lemmatized_text = get_lemmatized_text(path)
+    key_words_doc: Dict[str, Tuple[int, int]] = {}
     for word in key_words:
-        key_words_doc[word] = current_text_words.count(word)
+        normal_text_count = len(re.findall(r'\b' + re.escape(word) + r'\b', normal_text))
+        lemmatized_text_count = len(re.findall(r'\b' + re.escape(word) + r'\b', lemmatized_text))
+        key_words_doc[word] = (normal_text_count, lemmatized_text_count)
 
-    score: float = sum([0.7*key_words[word] + 0.3*key_words_doc[word] for word in key_words])
+    score: float = sum([0.6*key_words[word] + 0.2*key_words_doc[word][0] + 0.2*key_words_doc[word][1] for word in key_words])
 
     return score
+
+def download_nltk_packages():
+    """Checks if punkt package is installed. If not, it starts downloading punkt and wordnet packages.
+    """
+    try:
+        nltk.data.find('tokenizers/punkt')
+    except LookupError:
+        nltk.download('punkt')
+        nltk.download('wordnet')
 
 def get_top_doc(key_words: Dict[str, int], no_persons: int) -> List[str]:
     """Displays top documents based on the score.
