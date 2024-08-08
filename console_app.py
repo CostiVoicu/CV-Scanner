@@ -15,6 +15,7 @@ Pick a job you want to hire for:
 1. Django developer
 2. .NET developer
 3. HR
+4. Data engineer
     """)
 
     job: int = int(input())
@@ -45,6 +46,18 @@ Pick a job you want to hire for:
         'recruitment ': 9,
         'training': 5
     }
+    key_words_data_eng: Dict[str, int] = {
+        'data pipeline': 9,
+        'etl processes': 8,
+        'big data': 8,
+        'sql': 8,
+        'cloud computing': 7,
+        'python': 9,
+        'data warehousing': 9,
+        'kafka': 7,
+        'data modeling': 8,
+        'hadoop': 6
+    }
 
     match job:
         case 1:
@@ -53,6 +66,8 @@ Pick a job you want to hire for:
             return key_words_dotnet_dev
         case 3:
             return key_words_hr
+        case 4:
+            return key_words_data_eng
         case _:
             print('There is no such job!')
             return {}
