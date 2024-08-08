@@ -1,6 +1,7 @@
 import re
 import os
 import pymupdf
+import spacy
 from typing import Dict, List
 
 def extract_text_from_doc(doc_path: str) -> str:
@@ -41,6 +42,22 @@ def get_doc_paths(dir_path: str) -> List[str]:
             doc_paths.append(doc_path)
 
     return doc_paths
+
+def get_lemmatized_text(path: str) -> str:
+    """Lemmatize the text of the document at the specified path.
+
+    Args:
+        path (str): The path to the document.
+
+    Returns:
+        str: Lemmatized text.
+    """
+    nlp = spacy.load('en_core_web_sm')
+
+    doc_text: str = nlp(extract_text_from_doc(path))
+    lemmatized_tokens: List[str] = [token.lemma_ for token in doc_text]
+
+    return ' '.join(lemmatized_tokens)
 
 def get_document_score(key_words: Dict[str, int], path: str) -> float:
     """Counts every accurance of each key word in the document 
