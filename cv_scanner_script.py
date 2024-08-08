@@ -1,7 +1,9 @@
 import re
-import os
 import pymupdf
-from typing import Dict, List
+import nltk
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+from typing import Dict, List, Tuple
 from django.core.files.uploadedfile import UploadedFile, InMemoryUploadedFile
 
 def extract_text_from_doc(file: UploadedFile) -> str:
@@ -24,6 +26,35 @@ def extract_text_from_doc(file: UploadedFile) -> str:
     doc.close()
 
     return text.lower()
+
+def download_nltk_packages():
+    """Checks if punkt package is installed. If not, it starts downloading punkt and wordnet packages.
+    """
+    try:
+        nltk.data.find('tokenizers/punkt')
+    except LookupError:
+        nltk.download('punkt')
+        nltk.download('wordnet')
+
+def get_lemmatized_text(path: str) -> str:
+    """Lemmatize the text of the document at the specified path.
+
+    Args:
+        path (str): The path to the document.
+
+    Returns:
+        str: Lemmatized text.
+    """
+    download_nltk_packages()
+
+    lemmatizer = WordNetLemmatizer()
+
+    doc_text: str = extract_text_from_doc(path)
+    tokens: List[str] = word_tokenize(doc_text)
+
+    lemmatized_tokens: List[str] = [lemmatizer.lemmatize(token) for token in tokens]
+
+    return ' '.join(lemmatized_tokens)
 
 def get_document_score(key_words: Dict[str, int], document: InMemoryUploadedFile) -> float:
     """Counts every accurance of each key word in the document 
