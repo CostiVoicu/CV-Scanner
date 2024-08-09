@@ -36,22 +36,23 @@ def download_nltk_packages():
         nltk.download('punkt')
         nltk.download('wordnet')
 
-def get_lemmatized_text(path: str) -> str:
+def get_lemmatized_text(document: InMemoryUploadedFile) -> str:
     """Lemmatize the text of the document at the specified path.
 
     Args:
-        path (str): The path to the document.
+        document (InMemoryUploadedFile): The document.
 
     Returns:
         str: Lemmatized text.
     """
+    document.seek(0)
     download_nltk_packages()
 
     lemmatizer = WordNetLemmatizer()
 
-    doc_text: str = extract_text_from_doc(path)
+    doc_text = extract_text_from_doc(document)
+    
     tokens: List[str] = word_tokenize(doc_text)
-
     lemmatized_tokens: List[str] = [lemmatizer.lemmatize(token) for token in tokens]
 
     return ' '.join(lemmatized_tokens)
@@ -67,13 +68,23 @@ def get_document_score(key_words: Dict[str, int], document: InMemoryUploadedFile
     Returns:
         float: Score of the document.
     """
-    
-    current_text_words = re.split(r',|;|:| |\n', extract_text_from_doc(document))
-    key_words_doc: Dict[str, int] = {}
-    for word in key_words:
-        key_words_doc[word] = current_text_words.count(word.lower())
+    normal_text: str = extract_text_from_doc(document)
+    lemmatized_text: str = get_lemmatized_text(document)
 
-    score: float = sum([0.7*key_words[word] + 0.3*key_words_doc[word] for word in key_words])
+    key_words_doc: Dict[str, Tuple[int, int]] = {}
+    for word in key_words:
+        normal_text_count = len(re.findall(r'(?<!\w)' + re.escape(word) + r'(?!\w)', normal_text))
+        lemmatized_text_count = len(re.findall(r'(?<!\w)' + re.escape(word) + r'(?!\w)', lemmatized_text))
+        key_words_doc[word] = (normal_text_count, lemmatized_text_count)
+
+    score: float = sum(
+        (
+            0.6*key_words[word] + 
+            0.25*key_words_doc[word][0] + 
+            0.15*key_words_doc[word][1]
+        ) * (key_words_doc[word][0] > 0 or key_words_doc[word][1] > 0) 
+        for word in key_words
+    )
 
     return score
 
