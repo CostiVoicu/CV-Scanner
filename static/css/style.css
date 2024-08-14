@@ -51,3 +51,12 @@
         width: 30% !important;
     }
 }
+
+.custom-link {
+    color: black !important; 
+    text-decoration: none;
+}
+
+.custom-link:hover {
+    color: darkgray !important;
+}

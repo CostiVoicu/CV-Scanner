@@ -11,16 +11,17 @@
 {% block content %}
     <div class="list-group">
         {% for profile in profiles_list %}
-            <div class="list-group-item d-flex justify-content-between align-items-center mb-3 p-3 shadow-sm rounded">
-                <div class="d-flex flex-column">
-                    <h5 class="mb-1">{{ profile.name }}</h5>
+            <a href="{% url 'detail' profile.id %}" class="custom-link text-decoration-none">
+                <div class="list-group-item d-flex justify-content-between align-items-center mb-3 p-3 shadow-sm rounded">
+                    <div class="d-flex flex-column">
+                        <h5 class="mb-1">{{ profile.name }}</h5>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Profile Actions">
+                        <a type="button" href="{% url 'edit' profile.id %}" class="btn btn-outline-secondary btn-sm mx-2 rounded">Edit</a>
+                        <a type="button" href="{% url 'delete' profile.id %}" class="btn btn-outline-danger btn-sm rounded">Delete</a>
+                    </div>
                 </div>
-                <div class="btn-group" role="group" aria-label="Profile Actions">
-                    <a type="button" href="{% url 'detail' profile.id %}" class="btn btn-primary btn-sm">View</a>
-                    <a type="button" href="{% url 'edit' profile.id %}" class="btn btn-outline-secondary btn-sm mx-2">Edit</a>
-                    <a type="button" href="{% url 'delete' profile.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
-                </div>
-            </div>
+            </a>
         {% endfor %}
     </div>
 {% endblock content %}
