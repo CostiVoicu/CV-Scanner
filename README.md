@@ -43,6 +43,7 @@
   - **Candidate Selection**: Specify the number of candidates you'd like to interview.
   - **Profile-Based Filtration**: Select a job profile to automatically filter candidates based on the role's requirements.
   - **Resume Upload**: Easily upload resumes from your local machine for analysis.
+  - **Enhanced Document Analysis:** Integrated NLP techniques using NLTK for tokenization and lemmatization to extract key terms and compute weighted document scores, resulting in more accurate candidate ranking.
   - **Results Display**:
     - **Top Candidates**: Automatically generate a list of the top candidates.
     - **CV Viewer**: Directly view the CVs of selected candidates within the application.
